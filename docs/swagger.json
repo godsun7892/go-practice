@@ -1,0 +1,22 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/test/ping": {
+            "get": {
+                "description": "Responds with pong from test package",
+                "summary": "Test Ping example",
+                "responses": {
+                    "200": {
+                        "description": "pong",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

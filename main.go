@@ -1,27 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	_ "go_practice/docs"
+	"go_practice/test" // test 패키지 import
+
+	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-type fooHandler struct{}
-
-func (f *fooHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello Foo!")
-}
-
 func main() {
-	// 어떤 경로에 해당하는 request가 들어오면 어떤 handler를 실행할지 정의
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "Hello World")
-	})
+	r := gin.Default()
 
-	http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello Bar!")
-	})
+	// test 패키지의 핸들러를 라우팅
+	r.GET("/test/ping", test.PingHandler)
 
-	http.Handle("/foo", &fooHandler{})
+	// Swagger 엔드포인트 설정
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	http.ListenAndServe(":3000", nil)
+	// 서버 실행
+	r.Run(":8080")
 }

@@ -1,0 +1,13 @@
+info:
+  contact: {}
+paths:
+  /test/ping:
+    get:
+      description: Responds with pong from test package
+      responses:
+        "200":
+          description: pong
+          schema:
+            type: string
+      summary: Test Ping example
+swagger: "2.0"
